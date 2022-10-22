@@ -6,7 +6,10 @@ export const effects = {
     underscore: '\x1b[4m',
     blink: '\x1b[5m',
 };
-export const fontColors: TColors = {
+
+export type Effect = keyof typeof effects;
+
+export const fontColors = {
     black: '\x1b[30m',
     red: '\x1b[31m',
     green: '\x1b[32m',
@@ -16,8 +19,11 @@ export const fontColors: TColors = {
     cyan: '\x1b[36m',
     white: '\x1b[37m',
 };
-export const colors: string[] = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow'];
-export const backgroundColors: TColors = {
+
+export type Color = keyof typeof fontColors;
+
+export const colors: Color[] = ['black', 'blue', 'cyan', 'green', 'magenta', 'red', 'white', 'yellow'];
+export const backgroundColors = {
     black: '\x1b[40m',
     red: '\x1b[41m',
     green: '\x1b[42m',
@@ -27,7 +33,7 @@ export const backgroundColors: TColors = {
     cyan: '\x1b[46m',
     white: '\x1b[47m',
 };
-export const contrast: TColors = {
+export const contrast: Record<Color, 'white' | 'black'> = {
     black: 'white',
     red: 'black',
     green: 'black',
@@ -37,25 +43,3 @@ export const contrast: TColors = {
     cyan: 'black',
     white: 'black',
 };
-type TColorOptions = {
-    font?: string;
-    background?: string;
-    effects?: Array<TEffects>;
-};
-type ColorsName = string;
-
-type TColors = {
-    [col in ColorsName]: string;
-};
-
-type TEffects = keyof typeof effects;
-type TMarkdowmOptions = {
-    bold: boolean;
-    italic: boolean;
-    mono: boolean;
-    link: string;
-    blockquote: boolean;
-};
-type TOptions = Partial<TMarkdowmOptions & TColorOptions>;
-
-export type { ColorsName, TColors, TEffects, TColorOptions, TMarkdowmOptions, TOptions };

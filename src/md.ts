@@ -1,9 +1,15 @@
 import { color } from './colors';
-import type { TOptions } from './model';
-type TMarkdowmOption = 'bold' | 'italic' | 'mono' | 'link' | 'blockquote';
+export const mdOptionsList = ['bold', 'italic', 'mono', 'link', 'blockquote'];
 
-export const mdOptionsList: Array<TMarkdowmOption> = ['bold', 'italic', 'mono', 'link', 'blockquote'];
-export function markdown(text: string, options: TOptions): string {
+export type MarkdownOptions = {
+    bold?: boolean;
+    italic?: boolean;
+    mono?: boolean;
+    link?: string;
+    blockquote?: boolean;
+};
+
+export function markdown(text: string, options?: MarkdownOptions): string {
     let result = text;
     if (options) {
         if (options.bold) {

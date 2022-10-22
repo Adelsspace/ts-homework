@@ -1,11 +1,12 @@
-import { color } from './colors';
-import { markdown, mdOptionsList } from './md';
-import { colors } from './model';
-import type { TOptions } from './model';
-function isMarkdownOptions(options: TOptions): boolean {
+import { color, ColorOptions } from './colors';
+import { markdown, mdOptionsList, MarkdownOptions } from './md';
+import { colors, Color } from './model';
+
+type Options = MarkdownOptions | ColorOptions;
+function isMarkdownOptions(options: Options): options is MarkdownOptions {
     return mdOptionsList.some(key => key in options);
 }
-function styleImpl(text: string, options: TOptions): string {
+function styleImpl(text: string, options: Options) {
     if (text.length === 0) {
         return text;
     }
@@ -19,10 +20,10 @@ function styleImpl(text: string, options: TOptions): string {
 }
 const colorsObj = new Map(colors.map(color => [color, (text: string) => console.log(style(text, { font: color }))]));
 export const style = Object.assign(styleImpl, {
-    log: (text: string, options: TOptions) => {
+    log: (text: string, options: Options) => {
         console.log(style(text, options));
     },
-    color: (x: string) => {
+    color: (x: Color) => {
         const log = colorsObj.get(x);
         return log || console.log;
     },
